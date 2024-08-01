@@ -1,0 +1,19 @@
+{
+  "name": "web-automation-using-wdio-cucumber",
+  "version": "1.0.0",
+  "description": "Code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wahyu",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@wdio/cli": "^8.39.1",
+    "@wdio/cucumber-framework": "^8.39.0",
+    "@wdio/junit-reporter": "^8.39.0",
+    "@wdio/local-runner": "^8.39.1",
+    "@wdio/spec-reporter": "^8.39.0"
+  }
+}
