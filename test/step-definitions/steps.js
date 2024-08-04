@@ -3,11 +3,13 @@ import { expect } from '@wdio/globals'
 
 import LoginPage from '../pageobjects/login.page.js';
 import KategoriPage from '../pageobjects/kategori.page.js';
+import PenggunaPage from '../pageobjects/pengguna.page.js';
 
 Given(/^I open the Kasir Aja website$/, async () => {
     await LoginPage.open()
 })
 
+// Login step definition
 When(/^I login with valid credentials$/, async () => {
     await LoginPage.login('srituemail@test.com', 'Test123')
     await LoginPage.submit()
@@ -25,8 +27,9 @@ When(/^I attempt to login with "([^"]*)" and "([^"]*)"$/, async (email, password
 Then(/^I should see an error message "(.*)"$/, async (error_message) => {
     await expect(LoginPage.errorMessage).toHaveText(error_message);
 });
+// ==============================================
 
-
+// Kategori step definition
 When(/^I click on the Kategori Tab$/, async () => {
     await KategoriPage.kategoriTab.click()
 })
@@ -107,4 +110,67 @@ Then(/^I should see the (.*) kategori was deleted$/, async (delete_name) => {
     await expect(KategoriPage.alert).toBeDisplayed()
     await KategoriPage.setKategori(delete_name)
     await expect(KategoriPage.kategoryAdded).not.toBePresent()
+})
+//========================================================
+
+// Pengguna Step definition
+When(/^I click on the Pengguna Tab$/, async () => {
+    await PenggunaPage.penggunaTab.click()
+})
+
+Then(/^I should see the Pengguna Page$/, async () => {
+    await expect(browser).toHaveUrl('https://kasirdemo.vercel.app/users')
+})
+
+Then(/^I shoul see the Pengguna Create Page$/, async () => {
+    await expect(browser).toHaveUrl('https://kasirdemo.vercel.app/users/create')
+})
+
+When(/^I input a "([^"]*)", "([^"]*)" and "([^"]*)" for the new User$/, async (name, email, password) => {
+    await PenggunaPage.addPengguna(name, email, password)
+})
+
+Then(/^I should see the new "([^"]*)" user in the list$/, async (name) => {
+    await expect(browser).toHaveUrl('https://kasirdemo.vercel.app/users')
+    await expect(PenggunaPage.alert).toBeDisplayed()
+    await browser.refresh()
+    await PenggunaPage.setPengguna(name)
+    await expect(PenggunaPage.userAdded).toBeDisplayed()
+})
+
+When(/^I click option Espisilis button on user ([^"]*)$/, async (old_user) => {
+    await PenggunaPage.setPengguna(old_user)
+    await PenggunaPage.epsilisBtn.click()
+})
+
+When(/^I clik ubah button on user ([^"]*)$/, async (old_user) => {
+    await PenggunaPage.setPengguna(old_user)
+    await PenggunaPage.ubahButton.click()
+})
+
+Then (/^I should See Update User Page$/, async () => {
+    await expect(browser).toHaveUrl(expect.stringContaining('/edit'))
+})
+
+When (/^I input a new "([^"]*)", "([^"]*)" and "([^"]*)"$/, async (new_name, new_email, new_password) => {
+    await PenggunaPage.updPengguna(new_name, new_email, new_password)
+})
+
+Then(/^I should see the update ([^"]*) user in the list$/, async (new_name) => {
+    await expect(browser).toHaveUrl('https://kasirdemo.vercel.app/users')
+    await expect(PenggunaPage.alert).toBeDisplayed()
+    await browser.refresh()
+    await PenggunaPage.setPengguna(new_name)
+    await expect(PenggunaPage.userAdded).toBeDisplayed()
+})
+
+When(/^I Click hapus button on user ([^"]*)$/, async (delete_name) => {
+    await PenggunaPage.setPengguna(delete_name)
+    await PenggunaPage.hapusBtn.click()
+})
+
+Then(/^I should see the ([^"]*) user was deleted$/, async (delete_name) => {
+    await expect(PenggunaPage.alert).toBeDisplayed()
+    await PenggunaPage.setPengguna(delete_name)
+    await expect(PenggunaPage.userAdded).not.toBePresent()
 })
