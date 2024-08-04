@@ -2,7 +2,7 @@
 Feature: Kategori Page functionality
   As a user, I want modify data on kategori page
   
-  @addKategori @kategoriScenario
+  @addKategori @kategoriScenario @smoke
   Scenario Outline: User can add new kategori
     Given I open the Kasir Aja website
     When I login with valid credentials
