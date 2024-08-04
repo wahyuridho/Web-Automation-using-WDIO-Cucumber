@@ -6,8 +6,7 @@ class LoginPage extends Page {
     get inputPassword () { return $('//input[@id="password"]') }
     get btnSubmit () { return $('//button[@type="submit"]') }
     get errorMessage () {return $('//div[@role="alert"]')}
-    get userLoggedIN () {return $('//button[@aria-haspopup="menu"]')}
-    get logOutBtn () {return $('//button[text()="logout"]')}
+    
 
 
     open = async () => {
@@ -21,15 +20,6 @@ class LoginPage extends Page {
 
     submit = async () => {
         return await this.btnSubmit.click()
-    }
-
-    isLoggedIn = async () => {
-        return (await this.userLoggedIN).isDisplayed()
-    }
-
-    logOut = async () => {
-        await this.userLoggedIN.click()
-        await this.logOutBtn.click()
     }
 }
 
