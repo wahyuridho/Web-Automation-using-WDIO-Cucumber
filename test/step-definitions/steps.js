@@ -43,25 +43,25 @@ Then(/^I shoul see the Kategori Create Page$/, async () => {
     await expect(browser).toHaveUrl('https://kasirdemo.vercel.app/categories/create')
 })
 
-When(/^I input a name and description for the new Kategori$/, async () => {
-    await KategoriPage.addKategori('Box', 'Satuan Satu dus')
+When(/^I input a "([^"]*)" and "([^"]*)" for the new Kategori$/, async (name, description) => {
+    await KategoriPage.addKategori(name, description)
 })
 
 When(/^I Click Save Button$/, async () => {
     await KategoriPage.submit()
 })
 
-Then(/^I should see the new kategori in the list$/, async () => {
+Then(/^I should see the new "([^"]*)" kategori in the list$/, async (name) => {
     await expect(browser).toHaveUrl('https://kasirdemo.vercel.app/categories')
     await expect(KategoriPage.alert).toBeDisplayed()
     await browser.refresh()
-    await KategoriPage.setKategori("Box")
+    await KategoriPage.setKategori(name)
     await expect(KategoriPage.kategoryAdded).toBeDisplayed()
 })
 
 
-When(/^I click option Espisilis button on kategori list$/, async () => {
-    await KategoriPage.setKategori("Box")
+When(/^I click option Espisilis button on kategori ([^"]*)$/, async (old_name) => {
+    await KategoriPage.setKategori(old_name)
     await KategoriPage.epsilisBtn.click()
 })
 
@@ -69,8 +69,8 @@ Then(/^I should see submenu$/, async () => {
     await expect(KategoriPage.submenu).toBeDisplayed()
 }) 
 
-When(/^I clik ubah button$/, async () => {
-    await KategoriPage.setKategori("Box")
+When(/^I clik ubah button on kategori ([^"]*)$/, async (old_name) => {
+    await KategoriPage.setKategori(old_name)
     await KategoriPage.ubahButton.click()
 })
 
@@ -78,20 +78,20 @@ Then(/^I should See Update Kategori Page$/, async () => {
     await expect(browser).toHaveUrl(expect.stringContaining('/edit'))
 })
 
-When(/^I input a new name and description$/, async () => {
-    await KategoriPage.updKategori("Pack", "Satuan kotak kecil")
+When(/^I input a new "([^"]*)" and "([^"]*)"$/, async (new_name, new_description) => {
+    await KategoriPage.updKategori(new_name, new_description)
 })
 
-Then(/^I should see the update kategori in the list$/, async () => {
+Then(/^I should see the update (.*) kategori in the list$/, async (new_name) => {
     await expect(browser).toHaveUrl('https://kasirdemo.vercel.app/categories')
     await expect(KategoriPage.alert).toBeDisplayed()
     await browser.refresh()
-    await KategoriPage.setKategori("Pack")
+    await KategoriPage.setKategori(new_name)
     await expect(KategoriPage.kategoryAdded).toBeDisplayed()
 })
 
-When(/^I Click hapus button$/, async () => {
-    await KategoriPage.setKategori("Box")
+When(/^I Click hapus button on kategori (.*)$/, async (delete_name) => {
+    await KategoriPage.setKategori(delete_name)
     await KategoriPage.hapusBtn.click()
 })
 
@@ -103,8 +103,8 @@ When(/^I click Delete Button$/, async () => {
     await KategoriPage.deleteButton.click()
 })
 
-Then(/^I should see the kategori was deleted$/, async () => {
+Then(/^I should see the (.*) kategori was deleted$/, async (delete_name) => {
     await expect(KategoriPage.alert).toBeDisplayed()
-    await KategoriPage.setKategori("Box")
+    await KategoriPage.setKategori(delete_name)
     await expect(KategoriPage.kategoryAdded).not.toBePresent()
 })
