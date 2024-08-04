@@ -9,10 +9,10 @@ class KategoriPage extends Page{
     get saveBtn () { return $('//button[normalize-space()="simpan"]') }
     get alert () { return $('//div[@role="alert"]') }
     get kategoryAdded () { return $(`//td[normalize-space()="${this.kategori}"]//parent::tr[@role="row"]`) }
-    get epsilisBtn () { return $(`//td[normalize-space()="${this.kategori}"]/following-sibling::*[2]//button[@aria-haspopup="menu"]`) }
+    get epsilisBtn () { return $(`//td[normalize-space()="${this.kategori}"]/following-sibling::*//button[@aria-haspopup="menu"]`) }
     get submenu() { return $('//div[@data-popper-placement="bottom-end"]') }
-    get ubahButton() { return $(`//td[normalize-space()="${this.kategori}"]//following-sibling::*[2]//child::a[@tabindex="0"]`) }
-    get hapusBtn() { return $(`//td[normalize-space()="${this.kategori}"]/following-sibling::*[2]//button[@role="menuitem"]`) }
+    get ubahButton() { return $(`//td[normalize-space()="${this.kategori}"]//following-sibling::*//child::a[@tabindex="0"]`) }
+    get hapusBtn() { return $(`//td[normalize-space()="${this.kategori}"]/following-sibling::*//button[@role="menuitem"]`) }
     get alertDialog() { return $('//section[@role="alertdialog"]') }
     get deleteButton() { return $('//button[text()="Delete"]') }
 
